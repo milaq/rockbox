@@ -314,6 +314,15 @@ static void style_line(struct screen *display,
         style |= STYLE_INVERT;
     }
 
+    /* HACK: draw only title line when 'auto' line separators are set*/
+    if (global_settings.list_separator_height == -1)
+    {
+        if (line->separator_height == 2)
+            line->separator_height = 1;
+        else
+            line->separator_height = 0;
+    }
+
     if (line->separator_height > 0 && (line->line == line->nlines-1))
     {
         int sep_height = MIN(line->separator_height, height);
